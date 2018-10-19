@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Starter Kit</title>
+    <link media="all" rel="stylesheet" href="assets/css/vendor.min.css">
+    <link media="all" rel="stylesheet" href="assets/css/style.min.css">
+</head>
+<style>
+</style>
+
+<body>
+    <div id="wrapper">
+        <section class="form-section">
+            <div class="part-1">
+                <form v-on:submit.prevent="setToStorage" data-vv-scope="registration">
+                    <p>User Registration</p>
+                    <label class="input-row">FirstName:
+                        <input v-model="personalInfo.firstName" v-validate="'required|min:4'" type="text" data-vv-name="firstName" name="firstName">
+                        <span>{{ errors.first('registration.firstName') }}</span>
+                    </label>
+                    <label class="input-row">LastName:
+                        <input v-model="personalInfo.lastName" v-validate="'required|min:4'" type="text" name="lastName">
+                        <span>{{ errors.first('registration.lastName') }}</span>
+                    </label>
+                    <label class="input-row">Email:
+                        <input v-model="personalInfo.email" v-validate="'required|email'" type="email" name="email">
+                        <span>{{ errors.first('registration.email') }}</span>
+                    </label>
+                    <label class="input-row">Age:
+                        <input v-model="personalInfo.age" v-validate="'min_value:18'" type="number" name="age">
+                        <span>{{ errors.first('registration.age') }}</span>
+                    </label>
+                    <label class="input-row">Skype:
+                        <input v-model="personalInfo.skype" type="text" name="skype">
+                    </label>
+                    <p>stage <span>{{stage + 1}}</span></p>
+                </form>
+            </div>
+            <div class="part-2" v-show="stage">
+                <form v-on:submit.prevent="setToStorage" data-vv-scope="advanced-info">
+                    <p>advanced info (not necessary)</p>
+                    <label class="input-row">Hobbies:
+                        <input v-model="personalInfo.hobbies" type="text" name="hobbies">
+                        <span>{{ errors.first('advanced-info.hobbies') }}</span>
+                    </label>
+                    <label class="input-row">Telephones:
+                        <input v-model="personalInfo.telephones" v-validate="'numeric'" type="text" name="telephones">
+                        <span>{{ errors.first('advanced-info.telephones') }}</span>
+                    </label>
+                    <label class="input-row">Nickname:
+                        <input v-model="personalInfo.nickname" name="nickname" v-validate="'required|nickname:god'" type="text">
+                        <span>{{ errors.first('advanced-info.nickname') }}</span>
+                    </label>
+                    <button type="submit" id="addData" v-bind:disabled="btnDisable">Add Info</button>
+                </form>
+            </div>
+            <button class="cash-button" v-on:click="clearLocalStorage">Clear Cash</button>
+        </section>
+        <section class="data-table">
+            <table id="dataTable">
+                <tbody>
+                    <tr>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Skype</th>
+                        <th>nickname</th>
+                        <th>hobbies</th>
+                        <th>telephones</th>
+                    </tr>
+                    <tr v-for="(person, index) in persons">
+                        <td>{{person.firstName}}</td>
+                        <td>{{person.lastName}}</td>
+                        <td>{{person.email}}</td>
+                        <td>{{person.age}}</td>
+                        <td>{{person.skype}}</td>
+                        <td>{{person.nickname}}</td>
+                        <td>{{person.hobbies}}</td>
+                        <td>{{person.telephones}}</td>
+                        <td><span v-on:click="removePerson(index)" class="btn">remove</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <script src="assets/js/vendor.min.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+
+</html>

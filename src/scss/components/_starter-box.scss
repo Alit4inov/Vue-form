@@ -1,0 +1,65 @@
+// Note: This is an example of components style, so please remove it or re-write it on your styles.
+
+#wrapper {
+  overflow: hidden;
+  padding: 15px;
+}
+
+.cash-button {
+  width: 300px;
+}
+
+.form-section {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  form {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+
+  }
+  .input-row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    input {
+      display: block;
+      height: 30px;
+      min-width: 1px;
+      width: 100%;
+      max-width: 200px;
+      &[aria-invalid="true"] {
+        color: red;
+      }
+    }
+    span {
+      display: inline-block;
+      width: 100%;
+      color: red;
+    }
+  }
+}
+
+.data-table {
+  width: 80%;
+  margin: 0 auto;
+  table {
+    width: 100%;
+    tr {
+      td,th {
+        border: 1px solid #f1f1f1;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.btn {
+  cursor: pointer;
+}
+
