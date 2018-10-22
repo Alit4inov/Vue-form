@@ -5,8 +5,14 @@
   padding: 15px;
 }
 
-.cash-button {
+.btn-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
   width: 300px;
+  margin-bottom: 10px;
 }
 
 .form-section {

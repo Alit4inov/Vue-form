@@ -14,7 +14,7 @@
 <body>
     <div id="wrapper">
         <section class="form-section">
-            <div class="part-1">
+            <div class="part-1" v-show="!stage">
                 <form v-on:submit.prevent="setToStorage" data-vv-scope="registration">
                     <p>User Registration</p>
                     <label class="input-row">FirstName:
@@ -34,7 +34,8 @@
                         <span>{{ errors.first('registration.age') }}</span>
                     </label>
                     <label class="input-row">Skype:
-                        <input v-model="personalInfo.skype" type="text" name="skype">
+                        <input v-model="personalInfo.skype" v-validate="'min:4|max:10'" type="text" name="skype">
+                        <span>{{ errors.first('registration.skype') }}</span>
                     </label>
                     <p>stage <span>{{stage + 1}}</span></p>
                 </form>
@@ -51,13 +52,18 @@
                         <span>{{ errors.first('advanced-info.telephones') }}</span>
                     </label>
                     <label class="input-row">Nickname:
-                        <input v-model="personalInfo.nickname" name="nickname" v-validate="'required|nickname:god'" type="text">
+                        <input v-model="personalInfo.nickname" name="nickname" v-validate="'nickname'" type="text">
                         <span>{{ errors.first('advanced-info.nickname') }}</span>
                     </label>
-                    <button type="submit" id="addData" v-bind:disabled="btnDisable">Add Info</button>
+                    <button class="btn" type="submit" id="addData">Add Info</button>
+                    <p>stage <span>{{stage + 1}}</span></p>
                 </form>
             </div>
-            <button class="cash-button" v-on:click="clearLocalStorage">Clear Cash</button>
+            <div class="btn-row">
+                <button class="btn" v-on:click="stepSwitch">{{btn_text}}</button>
+                <button class="btn" v-on:click="clearLocalStorage">Clear Cash</button>
+            </div>
+
         </section>
         <section class="data-table">
             <table id="dataTable">
