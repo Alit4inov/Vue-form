@@ -48,17 +48,15 @@ export default () => {
         },
         methods: {
             setToStorage() {
+                console.log(this.persons);
                 this.persons.push(Object.assign({}, this.personalInfo));
                 this.savePersonsToStorage();
-                this.getFromStorage();
                 for (let key in this.personalInfo) {
                     this.personalInfo[key] = '';
                 }
-                setTimeout(() => {
-                    this.errors.clear('registration');
-                    this.stage = 0;
-                    this.btn_text = 'Next';
-                }, 0);
+                this.$validator.reset();
+                this.stage = 0;
+                this.textChange();
             },
             getFromStorage() {
                 this.persons = JSON.parse(localStorage.getItem('persons'));
@@ -77,14 +75,19 @@ export default () => {
             stepSwitch() {
                 this.$validator.validateAll('registration').then((success) => {
                     if (success && this.stage === 0) {
-                        this.stage = 1;
-                        this.btnDisable = false;
-                        this.btn_text = 'Back';
-                    } else if (success && this.stage === 1) {
-                        this.stage = 0;
-                        this.btn_text = 'Next';
+                        ++this.stage;
+                    }else if (success && this.stage >= 1) {
+                        --this.stage;
                     }
+                    this.textChange();
                 });
+            },
+            textChange() {
+                if (this.stage === 0 ){
+                    this.btn_text = 'Next';
+                }else {
+                    this.btn_text = 'Back';
+                }
             }
         },
         created() {
